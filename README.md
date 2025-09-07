@@ -37,6 +37,8 @@ Design: Responsive Layout, Grid & Flexbox, Modern Styling
 
 <img width="1340" height="608" alt="portfolio s2" src="https://github.com/user-attachments/assets/7ecc3c8c-7435-4764-871a-fcae63b9fcfd" />
 
+https://deepakmeena2221187.netlify.app/
+
 
 📬 Contact
 
@@ -45,3 +47,4 @@ Email: deepaksingh1712000@gmail.com
 LinkedIn: linkedin.com/in/deepak-meena-734b9625b
 
 GitHub: github.com/DeepakMeena222187
+
