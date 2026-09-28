@@ -13,17 +13,35 @@ html, body {
   color: #ffffff;
 }
 
-/* ===== ENHANCED VIDEO BACKGROUND ===== */
-#bg-video {
+/* ===== 3D BACKGROUND SCENE ===== */
+html, body {
+  background: #05050f;
+}
+
+#bg-canvas {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  object-fit: cover;
-  z-index: -3;
-  pointer-events: none;
-  filter: brightness(1.5) contrast(1.1) saturate(1.0);
+  /* Deliberately NOT a negative z-index: a fixed WebGL canvas behind
+     content on a tall/scrollable page can fail to composite under some
+     software renderers when given a negative stack level. Zero, combined
+     with this element being first in the DOM, keeps it behind everything
+     that follows without that risk. */
+  z-index: 0;
+  display: block;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+#bg-canvas.is-ready {
+  opacity: 1;
+}
+
+/* Fallback for browsers without WebGL: no canvas, so paint a static backdrop */
+body.no-webgl {
+  background: radial-gradient(ellipse at center, #14142b 0%, #05050f 70%);
 }
 
 .video-overlay {
@@ -32,24 +50,15 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -2;
+  z-index: 0;
   background: linear-gradient(
     135deg,
-    rgba(0, 0, 0, 0.6) 0%,
-    rgba(10, 10, 30, 0.8) 25%,
-    rgba(0, 0, 0, 0.6) 50%,
-    rgba(10, 10, 30, 0.8) 75%,
-    rgba(0, 0, 0, 0.6) 100%
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(5, 5, 20, 0.6) 25%,
+    rgba(0, 0, 0, 0.45) 50%,
+    rgba(5, 5, 20, 0.6) 75%,
+    rgba(0, 0, 0, 0.45) 100%
   );
-  pointer-events: none;
-}
-
-#particles-js {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  opacity: 0.3;
   pointer-events: none;
 }
 
@@ -224,7 +233,7 @@ html, body {
 
 .hero-content {
   animation: fadeInUp 1.5s ease-out;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(6, 10, 20, 0.42);
   padding: 3rem 2rem;
   border-radius: 20px;
   backdrop-filter: blur(15px);
@@ -296,12 +305,28 @@ html, body {
   box-shadow: 0 10px 30px rgba(160, 216, 255, 0.4);
 }
 
+.scroll-cue {
+  margin-top: 2.5rem;
+  color: #a0d8ff;
+  font-size: 1.3rem;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(10px); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue { animation: none; }
+}
+
 /* ===== ENHANCED SECTIONS - FIXED VISIBILITY ===== */
 .section {
   min-height: 100vh;
   padding: 100px 10%;
   position: relative;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(6, 10, 20, 0.42);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -378,7 +403,7 @@ html, body {
 }
 
 .contact-details {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(6, 10, 20, 0.3);
   padding: 1.5rem;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -392,7 +417,7 @@ html, body {
 }
 
 .stat-card {
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(6, 10, 20, 0.42);
   padding: 2rem;
   border-radius: 15px;
   text-align: center;
@@ -446,7 +471,7 @@ html, body {
 }
 
 .timeline-content {
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(6, 10, 20, 0.42);
   padding: 2rem;
   border-radius: 15px;
   backdrop-filter: blur(10px);
@@ -534,7 +559,7 @@ html, body {
 }
 
 .cert-card {
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(6, 10, 20, 0.42);
   padding: 2rem;
   border-radius: 15px;
   text-align: center;
@@ -573,6 +598,73 @@ html, body {
   font-style: italic;
 }
 
+/* ===== EXPERIENCE SECTION ===== */
+.experience-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 3rem auto 0;
+}
+
+.experience-card {
+  background: rgba(6, 10, 20, 0.42);
+  padding: 2rem;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.experience-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.experience-role {
+  color: #a0d8ff;
+  font-size: 1.3rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.experience-company {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.experience-date {
+  margin-left: auto;
+  color: #cccccc;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.experience-summary {
+  color: #ffffff;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.experience-list {
+  color: #ffffff;
+  line-height: 1.8;
+  padding-left: 1.2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.experience-list li {
+  margin-bottom: 0.7rem;
+}
+
+.experience-list strong {
+  color: #a0d8ff;
+}
+
 /* ===== PROJECTS SECTION ===== */
 .projects-grid {
   display: grid;
@@ -582,7 +674,7 @@ html, body {
 }
 
 .project-card {
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(6, 10, 20, 0.42);
   border-radius: 15px;
   overflow: hidden;
   backdrop-filter: blur(10px);
@@ -664,7 +756,7 @@ html, body {
 }
 
 .skill-category {
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(6, 10, 20, 0.42);
   padding: 2rem;
   border-radius: 15px;
   backdrop-filter: blur(10px);
@@ -680,32 +772,27 @@ html, body {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-.skill-item {
-  margin-bottom: 1rem;
+.skill-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
 }
 
-.skill-name {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.5rem;
+.skill-chip {
+  background: rgba(160, 216, 255, 0.12);
   color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  border: 1px solid rgba(160, 216, 255, 0.35);
+  transition: all 0.3s ease;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-.skill-bar {
-  background: rgba(255, 255, 255, 0.1);
-  height: 8px;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.skill-progress {
-  height: 100%;
-  background: linear-gradient(90deg, #a0d8ff, #c6e2ff);
-  border-radius: 4px;
-  transition: width 1s ease;
-  width: 0%;
-  box-shadow: 0 0 10px rgba(160, 216, 255, 0.5);
+.skill-chip:hover {
+  background: rgba(160, 216, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(160, 216, 255, 0.4);
 }
 
 /* ===== CONTACT SECTION ===== */
@@ -722,7 +809,7 @@ html, body {
   gap: 1rem;
   margin-bottom: 2rem;
   padding: 1rem;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(6, 10, 20, 0.42);
   border-radius: 10px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -857,6 +944,7 @@ html, body {
   .stats-grid { grid-template-columns: 1fr; }
   .cta-buttons { flex-direction: column; align-items: center; }
   .cta-btn { width: 200px; text-align: center; }
+  .experience-date { margin-left: 0; }
 }
 
 @media (max-width: 480px) {
