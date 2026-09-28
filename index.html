@@ -4,7 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Deepak Meena - Software Development Engineer (.NET / Angular / Azure)</title>
-  <meta name="description" content="Deepak Meena — Full-Stack Software Development Engineer specializing in .NET, Angular, and Azure. Interactive 3D portfolio." />
+  <meta name="description" content="Deepak Meena — Full-Stack Software Development Engineer specializing in .NET, Angular, and Azure. An interactive 3D samurai portfolio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Shippori+Mincho:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -19,7 +22,17 @@
   <div class="scroll-progress"></div>
 
   <!-- Enhanced Fixed UI Elements -->
-  <div class="logo" title="Deepak Meena"></div>
+  <div class="logo" title="Deepak Meena">
+    <svg viewBox="0 0 100 100" class="logo-mark" aria-hidden="true">
+      <circle cx="50" cy="50" r="47" class="logo-ring" />
+      <g transform="translate(50 50) rotate(-45)">
+        <rect x="-3" y="-38" width="6" height="52" rx="2.5" class="logo-blade" />
+        <rect x="-3" y="-38" width="2.4" height="52" rx="1.2" class="logo-blade-edge" />
+        <rect x="-13" y="12" width="26" height="5" rx="2" class="logo-guard" />
+        <rect x="-4" y="16" width="8" height="16" rx="2" class="logo-hilt" />
+      </g>
+    </svg>
+  </div>
 
   <div class="social">
     <div class="social-line"></div>
@@ -50,13 +63,14 @@
 
   <div class="quote">
     <i class="fas fa-quote-left quote-icon"></i>
-    <p>"Great sculptures take time — so does mastery. I'm coding mine, one detail at a time."</p>
+    <p>"The blade and the codebase are sharpened the same way — one deliberate stroke at a time."</p>
     <div class="quote-author">— Sia (AI)</div>
   </div>
 
   <!-- Hero Section -->
   <section id="home" class="hero">
     <div class="hero-content">
+      <div class="hero-eyebrow">武士道 &middot; The Way of the Engineer</div>
       <h1>Deepak Meena</h1>
       <div class="subtitle">Software Development Engineer — Full-Stack (.NET / Angular / Azure)</div>
       <div class="typing-text" id="typing-text"></div>
