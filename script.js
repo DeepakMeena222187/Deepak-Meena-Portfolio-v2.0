@@ -1,114 +1,10 @@
-// ===== PARTICLES.JS CONFIGURATION =====
-particlesJS('particles-js', {
-  particles: {
-    number: {
-      value: 80,
-      density: {
-        enable: true,
-        value_area: 800
-      }
-    },
-    color: {
-      value: '#ffffff'
-    },
-    shape: {
-      type: 'circle',
-      stroke: {
-        width: 0,
-        color: '#000000'
-      }
-    },
-    opacity: {
-      value: 0.5,
-      random: false,
-      anim: {
-        enable: false,
-        speed: 1,
-        opacity_min: 0.1,
-        sync: false
-      }
-    },
-    size: {
-      value: 3,
-      random: true,
-      anim: {
-        enable: false,
-        speed: 40,
-        size_min: 0.1,
-        sync: false
-      }
-    },
-    line_linked: {
-      enable: true,
-      distance: 150,
-      color: '#ffffff',
-      opacity: 0.4,
-      width: 1
-    },
-    move: {
-      enable: true,
-      speed: 2,
-      direction: 'none',
-      random: false,
-      straight: false,
-      out_mode: 'out',
-      bounce: false,
-      attract: {
-        enable: false,
-        rotateX: 600,
-        rotateY: 1200
-      }
-    }
-  },
-  interactivity: {
-    detect_on: 'canvas',
-    events: {
-      onhover: {
-        enable: true,
-        mode: 'repulse'
-      },
-      onclick: {
-        enable: true,
-        mode: 'push'
-      },
-      resize: true
-    },
-    modes: {
-      grab: {
-        distance: 400,
-        line_linked: {
-          opacity: 1
-        }
-      },
-      bubble: {
-        distance: 400,
-        size: 40,
-        duration: 2,
-        opacity: 8,
-        speed: 3
-      },
-      repulse: {
-        distance: 200,
-        duration: 0.4
-      },
-      push: {
-        particles_nb: 4
-      },
-      remove: {
-        particles_nb: 2
-      }
-    }
-  },
-  retina_detect: true
-});
-
 // ===== TYPING ANIMATION =====
 const texts = [
-  'Building innovative web experiences...',
-  'Passionate about clean code & design...',
-  'Always learning, always creating...',
-  'Turning ideas into digital reality...',
-  'Let\'s create something amazing together!'
+  'Shipping production apps to Azure...',
+  'Zero stored credentials. Managed identity everywhere.',
+  'Event-driven systems with Azure Service Bus...',
+  'Lighthouse 97 / 100 / 100 / 100, and counting...',
+  'Turning ideas into deployed, verified systems.'
 ];
 
 let textIndex = 0;
@@ -175,21 +71,6 @@ function revealSections() {
     
     if (sectionTop < windowHeight * 0.8) {
       section.classList.add('revealed');
-    }
-  });
-}
-
-// ===== ANIMATE SKILL BARS =====
-function animateSkillBars() {
-  const skillBars = document.querySelectorAll('.skill-progress');
-  skillBars.forEach(bar => {
-    const progress = bar.getAttribute('data-progress');
-    const barTop = bar.getBoundingClientRect().top;
-    const windowHeight = window.innerHeight;
-    
-    if (barTop < windowHeight * 0.8 && !bar.classList.contains('animated')) {
-      bar.style.width = progress + '%';
-      bar.classList.add('animated');
     }
   });
 }
@@ -305,33 +186,6 @@ function updateActiveNavLink() {
   });
 }
 
-// ===== ENHANCED VIDEO BACKGROUND CONTROLS =====
-function setupVideoBackground() {
-  const video = document.getElementById('bg-video');
-  if (video) {
-    // Ensure video plays on mobile devices
-    video.muted = true;
-    video.playsInline = true;
-    
-    // Add click to pause/play functionality
-    video.addEventListener('click', function() {
-      if (video.paused) {
-        video.play();
-        showNotification('Background video resumed', 'info');
-      } else {
-        video.pause();
-        showNotification('Background video paused', 'info');
-      }
-    });
-    
-    // Handle video loading errors
-    video.addEventListener('error', function() {
-      console.log('Video failed to load, using fallback background');
-      document.body.style.background = 'linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%)';
-    });
-  }
-}
-
 // ===== LAZY LOADING FOR BETTER PERFORMANCE =====
 function setupLazyLoading() {
   if ('IntersectionObserver' in window) {
@@ -379,32 +233,6 @@ function setupProjectCards() {
   });
 }
 
-// ===== PARALLAX EFFECT FOR BACKGROUND =====
-function setupParallaxEffect() {
-  let ticking = false;
-  
-  function updateParallax() {
-    const scrolled = window.pageYOffset;
-    const video = document.getElementById('bg-video');
-    
-    if (video) {
-      const parallaxSpeed = scrolled * 0.5;
-      video.style.transform = `translate3d(0, ${parallaxSpeed}px, 0)`;
-    }
-    
-    ticking = false;
-  }
-  
-  function requestTick() {
-    if (!ticking) {
-      requestAnimationFrame(updateParallax);
-      ticking = true;
-    }
-  }
-  
-  window.addEventListener('scroll', requestTick);
-}
-
 // ===== THEME DETECTION AND ADAPTATION =====
 function setupThemeDetection() {
   // Detect user's color scheme preference
@@ -433,24 +261,17 @@ function optimizePerformance() {
     scrollTimeout = setTimeout(function() {
       updateScrollProgress();
       revealSections();
-      animateSkillBars();
       updateActiveNavLink();
     }, 10);
   });
   
-  // Preload critical resources
-  const link = document.createElement('link');
-  link.rel = 'preload';
-  link.as = 'video';
-  link.href = 'background real.mp4';
-  document.head.appendChild(link);
 }
 
 // ===== ACCESSIBILITY IMPROVEMENTS =====
 function setupAccessibility() {
   // Add skip to content link
   const skipLink = document.createElement('a');
-  skipLink.href = '#main-content';
+  skipLink.href = '#home';
   skipLink.className = 'skip-link';
   skipLink.textContent = 'Skip to main content';
   skipLink.style.cssText = `
@@ -472,11 +293,10 @@ function setupAccessibility() {
   });
   document.body.insertBefore(skipLink, document.body.firstChild);
   
-  // Add main content landmark
+  // Add main content landmark (keep id="home" intact for nav/anchors)
   const heroSection = document.getElementById('home');
   if (heroSection) {
     heroSection.setAttribute('role', 'main');
-    heroSection.id = 'main-content';
   }
   
   // Enhance focus management
@@ -497,11 +317,9 @@ document.addEventListener('DOMContentLoaded', function() {
   typeText();
   
   // Setup all features
-  setupVideoBackground();
   setupLazyLoading();
   setupKeyboardNavigation();
   setupProjectCards();
-  setupParallaxEffect();
   setupThemeDetection();
   optimizePerformance();
   setupAccessibility();
@@ -514,18 +332,11 @@ document.addEventListener('DOMContentLoaded', function() {
   
   console.log('🚀 Deepak Meena Portfolio Loaded Successfully!');
   console.log('📱 Responsive design active');
-  console.log('🎬 Video background initialized');
   console.log('✨ All animations ready');
 });
 
 // ===== WINDOW RESIZE HANDLER =====
 window.addEventListener('resize', function() {
-  // Reinitialize particles on resize
-  if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) {
-    window.pJSDom[0].pJS.fn.canvasSize();
-  }
-  
-  // Update any size-dependent calculations
   revealSections();
   updateActiveNavLink();
 });
